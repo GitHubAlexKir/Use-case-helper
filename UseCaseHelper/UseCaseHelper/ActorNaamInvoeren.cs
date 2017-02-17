@@ -10,11 +10,17 @@ using System.Windows.Forms;
 
 namespace UseCaseHelper
 {
-    public partial class Form1 : Form
+    public partial class ActorNaamInvoeren : Form
     {
-        public Form1()
+        public ActorNaamInvoeren()
         {
             InitializeComponent();
+            Invoerbtn.DialogResult = DialogResult.OK;
+        }
+
+        public string getNaam()
+        {
+            return Actornaamtextbox.Text;
         }
     }
 }
