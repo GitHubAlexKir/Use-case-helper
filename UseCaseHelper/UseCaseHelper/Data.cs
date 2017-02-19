@@ -10,7 +10,8 @@ namespace UseCaseHelper
     {
         public List<Actor> Actorlist = new List<Actor>();
         public List<Usecase> Caselist = new List<Usecase>();
-        
+        public List<Line> Linelist = new List<Line>();
+
         public void addActor(int ID, string naam)
         {
             Actorlist.Add(new Actor(ID, naam));
@@ -21,13 +22,20 @@ namespace UseCaseHelper
             Caselist.Add(new Usecase());
         }
 
+        public void addLine(int actorID, int caseID)
+        {
+            int lineID = Linelist.Count + 1;
+            Linelist.Add(new Line(lineID, actorID, caseID));
+        }
+
         public void LinkActorCase(int ActorID, string CaseText)
         {
             foreach (Usecase item in Caselist)
             {
-               //if (item.Naam == CaseText)
-               //{
-               //    item.actors.Add(ActorID);
+                //if (item.Naam == CaseText)
+                //{
+                //    item.actors.Add(ActorID);
+                //    addLine(ActorID, item.CaseID);
                //}
             }
         }

@@ -14,6 +14,8 @@ namespace UseCaseHelper
     {
         int aantalActors = 0;
         int aantalUsecases = 0;
+        bool selected = false;
+        int selectedActor;
         Data lists = new Data();
         Point locatie;
         public UseCaseForm()
@@ -110,6 +112,18 @@ namespace UseCaseHelper
 
                 }
             }
+           
+        }
+
+        private void selectedActor_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (Linebtn.Checked == true)
+            {
+                string ID = (((PictureBox)sender).Name).ToString();
+                ID = ID.Substring(ID.Length - 1, 1);
+                selectedActor = Convert.ToInt32(ID); 
+            }
+            
         }
     }
 }

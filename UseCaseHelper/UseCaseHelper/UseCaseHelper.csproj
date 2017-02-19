@@ -54,6 +54,7 @@
       <DependentUpon>ActorNaamInvoeren.cs</DependentUpon>
     </Compile>
     <Compile Include="Data.cs" />
+    <Compile Include="Line.cs" />
     <Compile Include="Usecase.cs" />
     <Compile Include="UseCaseForm.cs">
       <SubType>Form</SubType>
@@ -90,7 +91,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\usecaseimage.png" />

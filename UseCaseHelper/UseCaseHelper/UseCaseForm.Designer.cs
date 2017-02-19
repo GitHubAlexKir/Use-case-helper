@@ -159,6 +159,7 @@
             this.Actorbox1.TabIndex = 0;
             this.Actorbox1.TabStop = false;
             this.Actorbox1.Visible = false;
+            this.Actorbox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.selectedActor_MouseClick);
             // 
             // Actorbox2
             // 
@@ -171,6 +172,7 @@
             this.Actorbox2.TabIndex = 1;
             this.Actorbox2.TabStop = false;
             this.Actorbox2.Visible = false;
+            this.Actorbox2.MouseClick += new System.Windows.Forms.MouseEventHandler(this.selectedActor_MouseClick);
             // 
             // Actorbox3
             // 
@@ -183,6 +185,7 @@
             this.Actorbox3.TabIndex = 2;
             this.Actorbox3.TabStop = false;
             this.Actorbox3.Visible = false;
+            this.Actorbox3.MouseClick += new System.Windows.Forms.MouseEventHandler(this.selectedActor_MouseClick);
             // 
             // Actor3lbl
             // 
