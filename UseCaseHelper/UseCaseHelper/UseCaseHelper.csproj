@@ -53,6 +53,12 @@
     <Compile Include="ActorNaamInvoeren.Designer.cs">
       <DependentUpon>ActorNaamInvoeren.cs</DependentUpon>
     </Compile>
+    <Compile Include="Beschrijving.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Beschrijving.Designer.cs">
+      <DependentUpon>Beschrijving.cs</DependentUpon>
+    </Compile>
     <Compile Include="Data.cs" />
     <Compile Include="Usecase.cs" />
     <Compile Include="UseCaseForm.cs">
@@ -65,6 +71,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="ActorNaamInvoeren.resx">
       <DependentUpon>ActorNaamInvoeren.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Beschrijving.resx">
+      <DependentUpon>Beschrijving.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UseCaseForm.resx">
       <DependentUpon>UseCaseForm.cs</DependentUpon>
