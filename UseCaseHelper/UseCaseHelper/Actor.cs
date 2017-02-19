@@ -12,10 +12,6 @@ namespace UseCaseHelper
         public int ID;
         public string naam;
 
-        public Actor()
-        {
-        }
-
         public Actor(int ID, string naam)
         {
             this.ID = ID;

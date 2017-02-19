@@ -81,6 +81,7 @@
             // 
             this.Actortextbox.Location = new System.Drawing.Point(112, 62);
             this.Actortextbox.Name = "Actortextbox";
+            this.Actortextbox.ReadOnly = true;
             this.Actortextbox.Size = new System.Drawing.Size(462, 22);
             this.Actortextbox.TabIndex = 5;
             // 

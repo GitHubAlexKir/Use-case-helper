@@ -16,10 +16,11 @@ namespace UseCaseHelper
         {
             Actorlist.Add(new Actor(ID, naam));
         }
-
-        public void addCase(int ID, string naam)
+        public void addCase(string n, string s, string aa, string b, string u, string r)
         {
-            Caselist.Add(new Usecase());
+            int caseID = Caselist.Count + 1;
+            int[] a = new int[3];
+            Caselist.Add(new Usecase(caseID, n, s, a, aa, b, u, r));
         }
 
         public void addLine(int actorID, int caseID)
@@ -38,6 +39,11 @@ namespace UseCaseHelper
                 //    addLine(ActorID, item.CaseID);
                //}
             }
+        }
+
+        internal void deleteCase(object naam, string v1, string v2, string v3, string v4, string v5)
+        {
+            //throw new NotImplementedException();
         }
     }
 
