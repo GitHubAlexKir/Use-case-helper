@@ -15,6 +15,22 @@ namespace UseCaseHelper
         {
             Actorlist.Add(new Actor(ID, naam));
         }
+
+        public void addCase(int ID, string naam)
+        {
+            Caselist.Add(new Usecase());
+        }
+
+        public void LinkActorCase(int ActorID, string CaseText)
+        {
+            foreach (Usecase item in Caselist)
+            {
+               //if (item.Naam == CaseText)
+               //{
+               //    item.actors.Add(ActorID);
+               //}
+            }
+        }
     }
 
 }

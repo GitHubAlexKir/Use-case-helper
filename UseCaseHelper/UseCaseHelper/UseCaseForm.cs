@@ -13,14 +13,39 @@ namespace UseCaseHelper
     public partial class UseCaseForm : Form
     {
         int aantalActors = 0;
+        int aantalUsecases = 0;
         Data lists = new Data();
+        Point locatie;
         public UseCaseForm()
         {
             InitializeComponent();
         }
 
-        private void panel_Click(object sender, EventArgs e)
+        public void addActor(string naam)
         {
+            lists.addActor(aantalActors, naam);
+            foreach (Actor item in lists.Actorlist)
+            {
+                if (item.ID == 1)
+                {
+                    Actor1lbl.Text = item.naam;
+                }
+                if (item.ID == 2)
+                {
+                    Actor2lbl.Text = item.naam;
+                }
+                if (item.ID == 3)
+                {
+                    Actor3lbl.Text = item.naam;
+                }
+            }
+        }
+
+        private void panel_MouseClick(object sender, MouseEventArgs e)
+        {
+            locatie = e.Location;
+            locatie.Y += 100;
+            locatie.X -= 45;
             //Actors
             if (Actorbtn.Checked == true)
             {
@@ -55,23 +80,34 @@ namespace UseCaseHelper
 
                 }
             }
-        }
-        public void addActor(string naam)
-        {
-            lists.addActor(aantalActors, naam);
-            foreach (Actor item in lists.Actorlist)
+            //Usecases
+            if (Usecasebtn.Checked == true)
             {
-                if (item.ID == 1)
+                if (Createbtn.Checked == true)
                 {
-                    Actor1lbl.Text = item.naam;
+                    aantalUsecases++;
+                    //ActorNaamInvoeren naamInvoeren = new ActorNaamInvoeren();
+                    //if (naamInvoeren.ShowDialog(this) == DialogResult.OK)
+                    //{
+                    //    addActor(naamInvoeren.getNaam());
+                    //}
+                    //naamInvoeren.Close();
+                    Button Usecase = new Button();
+                    Usecase.BackgroundImage = UseCaseHelper.Properties.Resources.usecaseimage;
+                    Usecase.Text = "   " + "gebruiker aanmaken" + "   ";
+                    Usecase.Location = locatie;
+                    Usecase.FlatStyle = FlatStyle.Flat;
+                    Usecase.AutoSize = true;
+                    Usecase.Height += 30;
+                    Usecase.Width += 35;
+                    Usecase.BackgroundImageLayout = ImageLayout.Stretch;
+                    Usecase.FlatAppearance.BorderSize = 0;
+                    Controls.Add(Usecase);
+                    Usecase.BringToFront();
                 }
-                if (item.ID == 2)
+                else
                 {
-                    Actor2lbl.Text = item.naam;
-                }
-                if (item.ID == 3)
-                {
-                    Actor3lbl.Text = item.naam;
+
                 }
             }
         }
