@@ -109,6 +109,7 @@
             this.Removebtn.TabIndex = 11;
             this.Removebtn.Text = "Remove";
             this.Removebtn.UseVisualStyleBackColor = true;
+            this.Removebtn.Click += new System.EventHandler(this.Removebtn_Click);
             // 
             // ElementengroupBox
             // 

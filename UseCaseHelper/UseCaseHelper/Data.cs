@@ -19,31 +19,59 @@ namespace UseCaseHelper
         public void addCase(string n, string s, string aa, string b, string u, string r)
         {
             int caseID = Caselist.Count + 1;
-            int[] a = new int[3];
+            List<int> a = new List<int>();
             Caselist.Add(new Usecase(caseID, n, s, a, aa, b, u, r));
         }
 
-        public void addLine(int actorID, int caseID)
+        public void addLine(int actorID, string caseName)
         {
             int lineID = Linelist.Count + 1;
-            Linelist.Add(new Line(lineID, actorID, caseID));
+            Linelist.Add(new Line(lineID, actorID, getCaseID(caseName)));
+            LinkActorCase(actorID, getCaseID(caseName));
         }
-
-        public void LinkActorCase(int ActorID, string CaseText)
+        public int getCaseID(string caseNaam)
+        {
+            int ID = 0;
+            foreach (Usecase item in Caselist)
+            {
+                if (caseNaam == "   " + item.naam + "   ")
+                {
+                    ID = item.CaseID;
+                }
+            }
+            return ID;
+        }
+        public void LinkActorCase(int ActorID, int caseID)
         {
             foreach (Usecase item in Caselist)
             {
-                //if (item.Naam == CaseText)
-                //{
-                //    item.actors.Add(ActorID);
-                //    addLine(ActorID, item.CaseID);
-               //}
+                if (item.CaseID == caseID)
+                {
+                    item.actoren.Add(ActorID);
+               }
             }
         }
 
-        internal void deleteCase(object naam, string v1, string v2, string v3, string v4, string v5)
+        public void deleteCase(object naam, string v1, string v2, string v3, string v4, string v5)
         {
             //throw new NotImplementedException();
+        }
+
+        public void removeLine(int selectedActor, string selectedCase)
+        {
+            int caseID = Convert.ToInt32(selectedCase);
+            List<Line> delete = new List<Line>();
+            foreach (Line item in Linelist)
+            {
+                if (item.ActorID == selectedActor & item.CaseID == caseID)
+                {
+                    delete.Add(item);
+                }
+            }
+            foreach (Line item2 in delete)
+            {
+                Linelist.Remove(item2);
+            }
         }
     }
 

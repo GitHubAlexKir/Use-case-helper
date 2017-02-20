@@ -16,10 +16,12 @@ namespace UseCaseHelper
         int aantalUsecases = 0;
         bool selected = false;
         int selectedActor;
+        string selectedCase;
         Point a = new Point(0, 0);
         Point b = new Point(0, 0);
         Data lists = new Data();
         Point locatie;
+        Graphics formGraphics;
         public UseCaseForm()
         {
             InitializeComponent();
@@ -127,91 +129,159 @@ namespace UseCaseHelper
         }
         private void selectedActor_MouseClick(object sender, MouseEventArgs e)
         {
-            switch (selected) {
-        case true:
-                    if (Linebtn.Checked == true)
-                    {
+            if (Selectbtn.Checked == true & Linebtn.Checked == true)
+            {
+                string ID = (((PictureBox)sender).Name).ToString();
+                ID = ID.Substring(ID.Length - 1, 1);
+                selectedActor = Convert.ToInt32(ID);
+                switch (selected)
+                {
+                    case true:
                         b = (((PictureBox)sender).Location);
                         b.Y += 80;
-                        Pen myPen;
-                        myPen = new Pen(Color.Black);
-                        Graphics formGraphics = CreateGraphics();
-                        formGraphics.DrawLine(myPen, a.X, a.Y, b.X, b.Y);
                         selected = false;
-                    }
-                    break;
-        case false:
-                    if (Linebtn.Checked == true)
-                    {
+                        break;
+                    case false:
                         a = (((PictureBox)sender).Location);
                         a.Y += 80;
-                        string ID = (((PictureBox)sender).Name).ToString();
-                        ID = ID.Substring(ID.Length - 1, 1);
-                        selectedActor = Convert.ToInt32(ID);
                         selected = true;
-                    }
-                    break;
+                        break;
+                }
             }
+            //lijn maken
+            if (Createbtn.Checked == true)
+            {
+                switch (selected)
+                {
+                    case true:
+                        if (Linebtn.Checked == true)
+                        {
+                            b = (((PictureBox)sender).Location);
+                            b.Y += 80;
+                            string ID = (((PictureBox)sender).Name).ToString();
+                            ID = ID.Substring(ID.Length - 1, 1);
+                            selectedActor = Convert.ToInt32(ID);
+                            Pen myPen;
+                            myPen = new Pen(Color.Black);
+                            formGraphics = CreateGraphics();
+                            formGraphics.DrawLine(myPen, a.X, a.Y, b.X, b.Y);
+                            lists.addLine(selectedActor, selectedCase);
+                            selected = false;
+                        }
+                        break;
+                    case false:
+                        if (Linebtn.Checked == true)
+                        {
+                            a = (((PictureBox)sender).Location);
+                            a.Y += 80;
+                            string ID = (((PictureBox)sender).Name).ToString();
+                            ID = ID.Substring(ID.Length - 1, 1);
+                            selectedActor = Convert.ToInt32(ID);
+                            selected = true;
+                        }
+                        break;
+                }
+            }
+            
         }
 
         private void Case_MouseClick(object sender, MouseEventArgs e)
         {
-            if (Selectbtn.Checked == true)
+            if (Selectbtn.Checked == true & Linebtn.Checked == true)
+            {
+                string ID = (((Button)sender).Text).ToString();
+                selectedCase = lists.getCaseID(ID).ToString();
+                switch (selected)
+                {
+                    case true:
+                        b = (((Button)sender).Location);
+                        b.X += 50;
+                        b.Y -= 100;
+                        selected = false;
+                        break;
+                    case false:
+                        a = (((Button)sender).Location);
+                        a.X += 50;
+                        a.Y -= 100;
+                        selected = true;
+                        break;
+                }
+            }
+            
+            //case wijzigen
+            if (Selectbtn.Checked == true & Usecasebtn.Checked == true)
             {
                 string naam;
-                Beschrijving beschrijving = new Beschrijving();
+               
                 foreach (Usecase item in lists.Caselist)
                 {
                     if (((Button)sender).Text == "   " + item.naam + "   ")
                     {
-                        beschrijving.naam = item.naam;
-                        beschrijving.resulaten = item.resultaat;
-                        beschrijving.samenvatting = item.samenvatting;
-                        beschrijving.uitzonderingen = item.uitzonderingen;
-                        beschrijving.beschrijving = item.beschrijving;
-                        beschrijving.aannamen = item.aannamen;
-                       // beschrijving.setActors(item.actoren);
-                    }
-                }
-
-                if (beschrijving.ShowDialog(this) == DialogResult.OK)
-                {
-                    naam = beschrijving.getNaam();
-                    lists.deleteCase(naam, beschrijving.getSamenvatting(), beschrijving.getAannamen(), beschrijving.getBeschrijving(), beschrijving.getUitzonderingen(), beschrijving.getResultaten());
-                    CreateCase(naam);
-                }
-            }
-
-            switch (selected)
-            {
-                case true:
-                    if (Linebtn.Checked == true)
-                    {
-                        b = (((Button)sender).Location);
-                        b.X += 50;
-                        b.Y -= 100;
-                        Pen myPen;
-                        myPen = new Pen(Color.Black);
-                        Graphics formGraphics = panel.CreateGraphics();
-                        formGraphics.DrawLine(myPen, a.X, a.Y, b.X, b.Y);
-                        selected = false;
-                    }
-                    break;
-                case false:
-                    if (!selected)
-                    {
-                        if (Linebtn.Checked == true)
+                        Beschrijving beschrijving = new Beschrijving(item);
+                        if (beschrijving.ShowDialog(this) == DialogResult.OK)
                         {
-                            a = e.Location;
-                            a.X += 50;
-                            a.Y -= 100;
-                            //string ID = (((PictureBox)sender).Name).ToString();
-                            //ID = ID.Substring(ID.Length - 1, 1);
-                            //selectedActor = Convert.ToInt32(ID);
-                            selected = true;
+                            naam = beschrijving.getNaam();
+                            lists.deleteCase(naam, beschrijving.getSamenvatting(), beschrijving.getAannamen(), beschrijving.getBeschrijving(), beschrijving.getUitzonderingen(), beschrijving.getResultaten());
+                            CreateCase(naam);
                         }
                     }
-                    break;
+                }
+
+                
+            }
+            //lijn aanmaken
+            if (Createbtn.Checked == true)
+            {
+                switch (selected)
+                {
+                    case true:
+                        if (Linebtn.Checked == true)
+                        {
+                            b = (((Button)sender).Location);
+                            b.X += 50;
+                            b.Y -= 100;
+                            string ID = (((Button)sender).Text).ToString();
+                            selectedCase = ID;
+                            Pen myPen;
+                            myPen = new Pen(Color.Black);
+                            formGraphics = panel.CreateGraphics();
+                            formGraphics.DrawLine(myPen, a.X, a.Y, b.X, b.Y);
+                            lists.addLine(selectedActor, selectedCase);
+                            selected = false;
+                        }
+                        break;
+                    case false:
+                        if (!selected)
+                        {
+                            if (Linebtn.Checked == true)
+                            {
+                                a = (((Button)sender).Location);
+                                a.X += 50;
+                                a.Y -= 100;
+                                string ID = (((Button)sender).Text).ToString();
+                                selectedCase = ID;
+                                selected = true;
+                            }
+                        }
+                        break;
+                }
+            }
+            
+        }
+
+        private void Removebtn_Click(object sender, EventArgs e)
+        {
+            if (Linebtn.Checked & Selectbtn.Checked)
+            {
+                if (selectedCase != null)
+                {
+                    lists.removeLine(selectedActor, selectedCase);
+                    Pen myPen;
+                    myPen = new Pen(Color.White);
+                    formGraphics = panel.CreateGraphics();
+                    formGraphics.DrawLine(myPen, a.X, a.Y, b.X, b.Y);
+                }
+
             }
         }
     }

@@ -11,6 +11,10 @@ namespace UseCaseHelper
         public int LineID;
         public int CaseID;
         public int ActorID;
+        public int x1;
+        public int y1;
+        public int x2;
+        public int y2;
 
         public Line(int LineID,int CaseID,int ActorID)
         {

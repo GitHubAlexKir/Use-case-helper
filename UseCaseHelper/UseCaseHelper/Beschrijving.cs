@@ -12,25 +12,25 @@ namespace UseCaseHelper
 {
     public partial class Beschrijving : Form
     {
-        public string naam = "";
-        public string samenvatting = "";
-        public string aannamen = "";
-        public string beschrijving = "";
-        public string uitzonderingen = "";
-        public string resulaten = "";
-        public string actoren = "";
+        private Usecase item;
+
+        public Beschrijving(Usecase item)
+        {
+            InitializeComponent();
+            Invoerbtn.DialogResult = DialogResult.OK;
+            this.item = item;
+            Naamtextbox.Text = item.naam;
+            Samenvattingtextbox.Text = item.samenvatting;
+            Aannamentextbox.Text = item.aannamen;
+            Beschrijvingtextbox.Text = item.beschrijving;
+            uitzonderingentextbox.Text = item.uitzonderingen;
+            Resultaattextbox.Text = item.resultaat;
+        }
 
         public Beschrijving()
         {
             InitializeComponent();
             Invoerbtn.DialogResult = DialogResult.OK;
-            Naamtextbox.Text = naam;
-            Samenvattingtextbox.Text = samenvatting;
-            Aannamentextbox.Text = aannamen;
-            Beschrijvingtextbox.Text = beschrijving;
-            uitzonderingentextbox.Text = uitzonderingen;
-            Resultaattextbox.Text = resulaten;
-            Actortextbox.Text = actoren;
         }
 
         public string getNaam()
@@ -61,46 +61,6 @@ namespace UseCaseHelper
         public string getResultaten()
         { 
             return Resultaattextbox.Text;
-        }
-
-        public void setNaam(string tekst)
-        {
-            naam = tekst;
-        }
-
-        public void setSamenvatting(string tekst)
-        {
-            samenvatting = tekst;
-        }
-
-        public void setAannamen(string tekst)
-        {
-            aannamen = tekst;
-        }
-
-        public void setBeschrijving(string tekst)
-        {
-            beschrijving = tekst;
-        }
-
-        public void setUitzonderingen(string tekst)
-        {
-            uitzonderingen = tekst;
-        }
-
-        public void setResultaten(string tekst)
-        {
-            resulaten = tekst;
-        }
-
-        public void setActors(int[] actors)
-        {
-            string actor = "";
-            foreach (int item in actors)
-            {
-                actoren += item + " ,";
-            }
-            actoren = actor;
         }
     }
 }
