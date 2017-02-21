@@ -17,16 +17,16 @@ namespace UseCaseHelper
         public string uitzonderingen;
         public string resultaat;
 
-        public Usecase(int ID, string n,string s, List<int>a,string aa,string b, string u, string r)
+        public Usecase(int ID, string naam,string samenvatting, List<int>actoren,string aannamen,string beschrijving, string uitzonderingen, string resultaat)
         {
             CaseID = ID;
-            naam = n;
-            samenvatting = s;
-            actoren = a;
-            aannamen = aa;
-            beschrijving = b;
-            resultaat = r;
-            uitzonderingen = u;
+            this.naam = naam;
+            this.samenvatting = samenvatting;
+            this.actoren = actoren;
+            this.aannamen = aannamen;
+            this.beschrijving = beschrijving;
+            this.resultaat = resultaat;
+            this.uitzonderingen = uitzonderingen;
         }
     }
 }

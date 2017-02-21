@@ -26,7 +26,7 @@ namespace UseCaseHelper
         {
             InitializeComponent();
         }
-
+        //actor toevoegen
         public void addActor(string naam)
         {
             lists.addActor(aantalActors, naam);
@@ -177,7 +177,7 @@ namespace UseCaseHelper
             }
 
         }
-
+        //Cases
         private void Case_MouseClick(object sender, MouseEventArgs e)
         {
             if (Deletebtn.Checked & Usecasebtn.Checked)
@@ -234,7 +234,13 @@ namespace UseCaseHelper
                         {
                             actors += "," + lists.getActorName(item2);
                         }
-                        actors = actors.Substring(1);
+                        try
+                        {
+                            actors = actors.Substring(1);
+                        }
+                        catch (Exception)
+                        {
+                        }
                         Beschrijving beschrijving = new Beschrijving(item, actors);
                         if (beschrijving.ShowDialog(this) == DialogResult.OK)
                         {
@@ -311,24 +317,6 @@ namespace UseCaseHelper
                 }
 
             }
-        }
-
-        private void Exportbtn_Click(object sender, EventArgs e)
-        {
-            string fn = @"C:\Users\Alex\Desktop\test2.png";
-            Bitmap bmp = new Bitmap(this.Width, this.Height);
-
-            // In order to use DrawToBitmap, the image must have an INITIAL image. 
-            // Not sure why. Perhaps it uses this initial image as a mask??? Dunno.
-            using (Graphics G = Graphics.FromImage(bmp))
-            {
-                G.Clear(Color.Black);
-            }
-
-            this.DrawToBitmap(bmp, new Rectangle(0, 0,
-                        this.Width, this.Height));
-
-            bmp.Save(fn, ImageFormat.Png);
         }
     } 
 }

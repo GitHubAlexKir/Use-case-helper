@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UseCaseForm));
             this.ModesgroupBox = new System.Windows.Forms.GroupBox();
+            this.Deletebtn = new System.Windows.Forms.RadioButton();
             this.Createbtn = new System.Windows.Forms.RadioButton();
             this.Selectbtn = new System.Windows.Forms.RadioButton();
             this.Removebtn = new System.Windows.Forms.Button();
@@ -44,8 +45,6 @@
             this.Actor2lbl = new System.Windows.Forms.Label();
             this.Actor1lbl = new System.Windows.Forms.Label();
             this.panel = new System.Windows.Forms.Panel();
-            this.Deletebtn = new System.Windows.Forms.RadioButton();
-            this.Exportbtn = new System.Windows.Forms.Button();
             this.ModesgroupBox.SuspendLayout();
             this.ElementengroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Actorbox1)).BeginInit();
@@ -67,6 +66,17 @@
             this.ModesgroupBox.TabIndex = 13;
             this.ModesgroupBox.TabStop = false;
             this.ModesgroupBox.Text = "Modes";
+            // 
+            // Deletebtn
+            // 
+            this.Deletebtn.AutoSize = true;
+            this.Deletebtn.Location = new System.Drawing.Point(8, 80);
+            this.Deletebtn.Margin = new System.Windows.Forms.Padding(4);
+            this.Deletebtn.Name = "Deletebtn";
+            this.Deletebtn.Size = new System.Drawing.Size(70, 21);
+            this.Deletebtn.TabIndex = 3;
+            this.Deletebtn.Text = "Delete";
+            this.Deletebtn.UseVisualStyleBackColor = true;
             // 
             // Createbtn
             // 
@@ -94,10 +104,10 @@
             // 
             // Removebtn
             // 
-            this.Removebtn.Location = new System.Drawing.Point(336, 109);
+            this.Removebtn.Location = new System.Drawing.Point(336, 30);
             this.Removebtn.Margin = new System.Windows.Forms.Padding(4);
             this.Removebtn.Name = "Removebtn";
-            this.Removebtn.Size = new System.Drawing.Size(201, 28);
+            this.Removebtn.Size = new System.Drawing.Size(201, 107);
             this.Removebtn.TabIndex = 11;
             this.Removebtn.Text = "Remove Line";
             this.Removebtn.UseVisualStyleBackColor = true;
@@ -235,33 +245,11 @@
             this.panel.TabIndex = 14;
             this.panel.MouseClick += new System.Windows.Forms.MouseEventHandler(this.panel_MouseClick);
             // 
-            // Deletebtn
-            // 
-            this.Deletebtn.AutoSize = true;
-            this.Deletebtn.Location = new System.Drawing.Point(8, 80);
-            this.Deletebtn.Margin = new System.Windows.Forms.Padding(4);
-            this.Deletebtn.Name = "Deletebtn";
-            this.Deletebtn.Size = new System.Drawing.Size(70, 21);
-            this.Deletebtn.TabIndex = 3;
-            this.Deletebtn.Text = "Delete";
-            this.Deletebtn.UseVisualStyleBackColor = true;
-            // 
-            // Exportbtn
-            // 
-            this.Exportbtn.Location = new System.Drawing.Point(336, 38);
-            this.Exportbtn.Name = "Exportbtn";
-            this.Exportbtn.Size = new System.Drawing.Size(201, 64);
-            this.Exportbtn.TabIndex = 15;
-            this.Exportbtn.Text = "Export (test)";
-            this.Exportbtn.UseVisualStyleBackColor = true;
-            this.Exportbtn.Click += new System.EventHandler(this.Exportbtn_Click);
-            // 
             // UseCaseForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(971, 854);
-            this.Controls.Add(this.Exportbtn);
             this.Controls.Add(this.panel);
             this.Controls.Add(this.ModesgroupBox);
             this.Controls.Add(this.Removebtn);
@@ -300,7 +288,6 @@
         private System.Windows.Forms.Label Actor1lbl;
         private System.Windows.Forms.Panel panel;
         private System.Windows.Forms.RadioButton Deletebtn;
-        private System.Windows.Forms.Button Exportbtn;
     }
 }
 
