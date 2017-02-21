@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +14,6 @@ namespace UseCaseHelper
     public partial class UseCaseForm : Form
     {
         int aantalActors = 0;
-        int aantalUsecases = 0;
         bool selected = false;
         int selectedActor;
         string selectedCase;
@@ -53,10 +53,10 @@ namespace UseCaseHelper
             locatie.Y += 100;
             locatie.X -= 45;
             //Actors
-            if (Actorbtn.Checked == true)
+            if (Actorbtn.Checked == true & Createbtn.Checked == true)
             {
                 //Actors toevoegen
-                if (Createbtn.Checked == true && aantalActors < 3)
+                if (aantalActors < 3)
                 {
                     aantalActors++;
                     ActorNaamInvoeren naamInvoeren = new ActorNaamInvoeren();
@@ -81,36 +81,27 @@ namespace UseCaseHelper
                             break;
                     }
                 }
-                else
-                {
-
-                }
             }
-            //Usecases
-            if (Usecasebtn.Checked == true)
+            //Usecase aanmaken
+            if (Usecasebtn.Checked == true & Createbtn.Checked == true)
             {
-                if (Createbtn.Checked == true)
-                {
-                    string naam = "";
-                    aantalUsecases++;
-                    Beschrijving beschrijving = new Beschrijving();
-                    if (beschrijving.ShowDialog(this) == DialogResult.OK)
-                    {
-                        naam = beschrijving.getNaam();
-                        lists.addCase(naam, beschrijving.getSamenvatting(), beschrijving.getAannamen(), beschrijving.getBeschrijving(), beschrijving.getUitzonderingen(), beschrijving.getResultaten());
-                    }
-                    beschrijving.Close();
-                    CreateCase(naam);
-                }
-                else
-                {
 
+                string naam = "";
+                Beschrijving beschrijving = new Beschrijving();
+                if (beschrijving.ShowDialog(this) == DialogResult.OK)
+                {
+                    naam = beschrijving.getNaam();
+                    List<int> actors = new List<int>();
+                    lists.addCase(naam, beschrijving.getSamenvatting(), actors, beschrijving.getAannamen(), beschrijving.getBeschrijving(), beschrijving.getUitzonderingen(), beschrijving.getResultaten());
                 }
+                beschrijving.Close();
+                CreateCase(naam);
+
             }
-           
+
         }
 
-        
+        //usecase button aanmaken
         private void CreateCase(string naam)
         {
             Button Usecase = new Button();
@@ -127,8 +118,10 @@ namespace UseCaseHelper
             Controls.Add(Usecase);
             Usecase.BringToFront();
         }
+
         private void selectedActor_MouseClick(object sender, MouseEventArgs e)
         {
+            //lijn selecteren
             if (Selectbtn.Checked == true & Linebtn.Checked == true)
             {
                 string ID = (((PictureBox)sender).Name).ToString();
@@ -182,11 +175,29 @@ namespace UseCaseHelper
                         break;
                 }
             }
-            
+
         }
 
         private void Case_MouseClick(object sender, MouseEventArgs e)
         {
+            if (Deletebtn.Checked & Usecasebtn.Checked)
+            {
+                List<Usecase> temp = new List<Usecase>();
+                foreach (Usecase item in lists.Caselist.ToList())
+                {
+                    if (((Button)sender).Text == "   " + item.naam + "   ")
+                    {
+                        temp.Add(item);
+                    }
+                }
+                foreach (Usecase item2 in temp)
+                {
+                    lists.Caselist.Remove(item2);
+                }
+                ((Button)sender).Visible = false;
+
+            }
+            //Lijn selecteren
             if (Selectbtn.Checked == true & Linebtn.Checked == true)
             {
                 string ID = (((Button)sender).Text).ToString();
@@ -207,27 +218,43 @@ namespace UseCaseHelper
                         break;
                 }
             }
-            
+
             //case wijzigen
             if (Selectbtn.Checked == true & Usecasebtn.Checked == true)
             {
                 string naam;
-               
-                foreach (Usecase item in lists.Caselist)
+                List<Usecase> remove = new List<Usecase>();
+                List<Usecase> add = new List<Usecase>();
+                foreach (Usecase item in lists.Caselist.ToList())
                 {
                     if (((Button)sender).Text == "   " + item.naam + "   ")
                     {
-                        Beschrijving beschrijving = new Beschrijving(item);
+                        string actors = "";
+                        foreach (int item2 in item.actoren)
+                        {
+                            actors += "," + lists.getActorName(item2);
+                        }
+                        actors = actors.Substring(1);
+                        Beschrijving beschrijving = new Beschrijving(item, actors);
                         if (beschrijving.ShowDialog(this) == DialogResult.OK)
                         {
                             naam = beschrijving.getNaam();
-                            lists.deleteCase(naam, beschrijving.getSamenvatting(), beschrijving.getAannamen(), beschrijving.getBeschrijving(), beschrijving.getUitzonderingen(), beschrijving.getResultaten());
+                            add.Add(new Usecase(item.CaseID, naam, beschrijving.getSamenvatting(), item.actoren, beschrijving.getAannamen(), beschrijving.getBeschrijving(), beschrijving.getUitzonderingen(), beschrijving.getResultaten()));
+                            remove.Add(item);
                             CreateCase(naam);
                         }
                     }
+                    foreach (Usecase item2 in remove)
+                    {
+                        lists.Caselist.Remove(item2);
+                    }
+                    foreach (Usecase item3 in add)
+                    {
+                        lists.Caselist.Add(item3);
+                    }
                 }
 
-                
+
             }
             //lijn aanmaken
             if (Createbtn.Checked == true)
@@ -266,11 +293,12 @@ namespace UseCaseHelper
                         break;
                 }
             }
-            
+
         }
 
         private void Removebtn_Click(object sender, EventArgs e)
         {
+            //lijn verwijderen
             if (Linebtn.Checked & Selectbtn.Checked)
             {
                 if (selectedCase != null)
@@ -284,5 +312,23 @@ namespace UseCaseHelper
 
             }
         }
-    }
+
+        private void Exportbtn_Click(object sender, EventArgs e)
+        {
+            string fn = @"C:\Users\Alex\Desktop\test2.png";
+            Bitmap bmp = new Bitmap(this.Width, this.Height);
+
+            // In order to use DrawToBitmap, the image must have an INITIAL image. 
+            // Not sure why. Perhaps it uses this initial image as a mask??? Dunno.
+            using (Graphics G = Graphics.FromImage(bmp))
+            {
+                G.Clear(Color.Black);
+            }
+
+            this.DrawToBitmap(bmp, new Rectangle(0, 0,
+                        this.Width, this.Height));
+
+            bmp.Save(fn, ImageFormat.Png);
+        }
+    } 
 }

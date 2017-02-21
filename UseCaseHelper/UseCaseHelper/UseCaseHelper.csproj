@@ -60,7 +60,6 @@
       <DependentUpon>Beschrijving.cs</DependentUpon>
     </Compile>
     <Compile Include="Data.cs" />
-    <Compile Include="Line.cs" />
     <Compile Include="Usecase.cs" />
     <Compile Include="UseCaseForm.cs">
       <SubType>Form</SubType>

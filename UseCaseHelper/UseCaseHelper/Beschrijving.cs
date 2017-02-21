@@ -14,7 +14,7 @@ namespace UseCaseHelper
     {
         private Usecase item;
 
-        public Beschrijving(Usecase item)
+        public Beschrijving(Usecase item, string Actors)
         {
             InitializeComponent();
             Invoerbtn.DialogResult = DialogResult.OK;
@@ -25,6 +25,7 @@ namespace UseCaseHelper
             Beschrijvingtextbox.Text = item.beschrijving;
             uitzonderingentextbox.Text = item.uitzonderingen;
             Resultaattextbox.Text = item.resultaat;
+            Actortextbox.Text = Actors;
         }
 
         public Beschrijving()
